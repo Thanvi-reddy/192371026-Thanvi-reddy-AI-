@@ -1,0 +1,39 @@
+# Simple Reflex Agent for the Vacuum Cleaner Problem
+
+def vacuum_cleaner(initial_state):
+    # State format: (location, status_A, status_B)
+    # location: 'A' or 'B'
+    # status_A and status_B: 'Clean' or 'Dirty'
+
+    state = initial_state
+    actions = []
+
+    print("Initial State:", state)
+
+    while state[1] == 'Dirty' or state[2] == 'Dirty':
+        location, status_A, status_B = state
+
+        if location == 'A':
+            if status_A == 'Dirty':
+                actions.append("Suck")
+                status_A = 'Clean'
+                print("Cleaning at A")
+            actions.append("Move Right")
+            location = 'B'
+
+        elif location == 'B':
+            if status_B == 'Dirty':
+                actions.append("Suck")
+                status_B = 'Clean'
+                print("Cleaning at B")
+            actions.append("Move Left")
+            location = 'A'
+
+        state = (location, status_A, status_B)
+
+    print("Final State:", state)
+    print("Actions Taken:", actions)
+
+# Example usage:
+# Initial location: 'A', A is Dirty, B is Dirty
+vacuum_cleaner(('A', 'Dirty', 'Dirty'))
